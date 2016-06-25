@@ -2,7 +2,7 @@
 
 class stardog::params {
 
-  $version = '4.1'
+  $version = undef
   $inst_dir = '/opt'
   $base = "${inst_dir}/stardog-${version}"
   $home = '/var/lib/stardog'
