@@ -1,0 +1,7 @@
+# This file is managed by the Puppet <%= @name %> module
+
+export STARDOG_HOME=<%= scope['stardog::home'] %>
+<%- if scope['stardog::java_args'] -%>
+export STARDOG_JAVA_ARGS='<%= scope['stardog::java_args'] %>'
+<%- end -%>
+export PATH=$PATH:<%= scope['stardog::base'] %>/bin

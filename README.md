@@ -42,17 +42,17 @@ run as (`stardog::user`). The default is true.
 
 The version of Stardog to install. The value must match the value in the
 zip package name, i.e. `stardog-${stardog::version}.zip`. The default is
-undefined, therefore you must define this parameter.
+`4.1`.
 
 #### `stardog::home`
 
 The full path to the Stardog working directory of databases and related
 files. The default is `/var/lib/stardog`.
 
-#### `stardog::base`
+#### `stardog::install_dir`
 
-The full path to the Stardog installation directory. The default is
-`/opt/stardog-${stardog::version}`.
+The full path to the directory where Stardog will be installed. The default is
+`/opt`.
 
 #### `stardog::port`
 

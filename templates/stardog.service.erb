@@ -6,7 +6,8 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=forking
-EnvironmentFile=/etc/sysconfig/stardog
+EnvironmentFile=<%= scope['stardog::sysconfig'] %>
+User=<%= scope['stardog::user'] %>
 ExecStart=<%= scope['stardog::base'] %>/bin/stardog-admin server start
 ExecStop=<%= scope['stardog::base'] %>/bin/stardog-admin server stop
 Restart=on-failure

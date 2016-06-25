@@ -1,4 +1,8 @@
 # This file is managed by the Puppet <%= @name %> module
 
+# Environmental settings for Stardog
+
 STARDOG_HOME=<%= scope['stardog::home'] %>
-STARDOG_JAVA_ARGS='-Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g'
+<%- if scope['stardog::java_args'] -%>
+STARDOG_JAVA_ARGS='<%= scope['stardog::java_args'] %>'
+<%- end -%>
