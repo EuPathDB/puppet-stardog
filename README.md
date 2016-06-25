@@ -13,6 +13,7 @@ Java must be installed on the system. This module does not manage java.
 
 Possibly you will need to open firewall ports. This module does not manage that.
 
+## Parameters
 
 #### `stardog::package_url`
 
