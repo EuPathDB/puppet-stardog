@@ -1,16 +1,16 @@
 #
 class stardog (
-  $package_url = undef,
-  $license_url = undef,
-  $version     = $stardog::params::version,
-  $home        = $stardog::params::home,
-  $install_dir = $stardog::params::install_dir,
-  $port        = $stardog::params::port,
-  $user        = $stardog::params::user,
-  $manage_user = $stardog::params::manage_user,
-  $java_args   = $stardog::params::java_args,
-  $sysconfig   = $stardog::params::sysconfig,
-  $properties  = $stardog::params::properties,
+  $package_source = undef,
+  $license_source = undef,
+  $version        = $stardog::params::version,
+  $home           = $stardog::params::home,
+  $install_dir    = $stardog::params::install_dir,
+  $port           = $stardog::params::port,
+  $user           = $stardog::params::user,
+  $manage_user    = $stardog::params::manage_user,
+  $java_args      = $stardog::params::java_args,
+  $sysconfig      = $stardog::params::sysconfig,
+  $properties     = $stardog::params::properties,
 ) inherits stardog::params {
 
   include ::stardog::service
@@ -30,7 +30,8 @@ class stardog (
     ensure       => present,
     extract      => true,
     extract_path => $stardog::params::install_dir,
-    source       => $package_url,
+    source       => $package_source['url'],
+    checksum     => $package_source['sha1'],
     creates      => $base,
     cleanup      => true,
     notify       => Service['stardog'],
@@ -43,11 +44,12 @@ class stardog (
   }
 
   archive { "${home}/stardog-license-key.bin":
-    ensure  => present,
-    extract => false,
-    source  => $license_url,
-    creates => "${home}/stardog-license-key.bin",
-    cleanup => false,
+    ensure   => present,
+    extract  => false,
+    source   => $license_source['url'],
+    checksum => $license_source['sha1'],
+    creates  => "${home}/stardog-license-key.bin",
+    cleanup  => false,
   }
 
   file { '/usr/lib/systemd/system/stardog.service':
