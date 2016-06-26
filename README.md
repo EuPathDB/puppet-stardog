@@ -90,6 +90,26 @@ The full path to the directory where Stardog will be installed. The default is
 
 #### `stardog::port`
 
+#### `stardog::sdpass`
+
+An array of user and password entries for `$STARDOG_HOME/.sdpass`. See
+[http://docs.stardog.com/#_using_a_password_file](http://docs.stardog.com/#_using_a_password_file)
+for specifics
+
+Example hiera
+
+      stardog::sdpass:
+        - '*:*:*:admin:passWORD'
+
+**This module does not change passwords in the server databases.** You
+are responsible for keeping  `stardog::sdpass` in sync with the
+database. For example, by manually running on the CLI
+
+    stardog-admin user passwd --username admin --passwd admin --new-password passWORD
+
+The `.sdpass` file especially needs the `admin` account password (if not
+the default) so the service can be shut down cleanly.
+
 #### `stardog::properties`
 
 Optional hash of key value pairs for `$STARDOG_HOME/stardog.properties`

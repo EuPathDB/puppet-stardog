@@ -11,6 +11,7 @@ class stardog (
   $java_args      = $stardog::params::java_args,
   $sysconfig      = $stardog::params::sysconfig,
   $properties     = $stardog::params::properties,
+  $sdpass         = $stardog::params::sdpass,
   $java_home      = $stardog::params::java_home,
 ) inherits stardog::params {
 
@@ -68,6 +69,13 @@ class stardog (
     owner   => $user,
     mode    => '0640',
     notify  => Service['stardog'],
+  }
+
+  file { "${home}/.sdpass":
+    ensure  => 'file',
+    content => template('stardog/sdpass.erb'),
+    owner   => $user,
+    mode    => '0640',
   }
 
   file { $sysconfig:

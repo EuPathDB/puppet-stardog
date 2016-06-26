@@ -16,5 +16,6 @@ class stardog::params {
   $java_args = undef
   $java_home = undef
 
+  $sdpass = []
   $properties = {}
 }
