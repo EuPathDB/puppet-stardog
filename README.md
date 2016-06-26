@@ -15,17 +15,37 @@ Possibly you will need to open firewall ports. This module does not manage that.
 
 ## Parameters
 
-#### `stardog::package_url`
+#### `stardog::package_source`
 
-URL to download stardog zip package. Stardog requires registration
+This is a hash with keys
+
+- `url` URL to download stardog zip package. Stardog requires registration
 before accessing a temporary download URL. You will need to host the zip
 package at a stable, internal location for this module to fetch.
 
-#### `stardog::license_url`
+- `sha1` The sha1 checksum for the zip package
 
-URL to download stardog license file. Stardog requires registration
+Example hiera
+
+      stardog::package_source:
+        url: 'http://localhost/stardog/stardog-4.1.zip'
+        sha1: '85b3b9e9ebf35cb802a173667984246b3ba11432'
+
+#### `stardog::license_source`
+
+This is a hash with keys
+
+- `url` URL to download stardog license file. Stardog requires registration
 before providing a license file. You will need to host the license
 file at a stable, internal location for this module to fetch.
+
+- `sha1` The sha1 checksum for the licence file
+
+Example hiera
+
+    stardog::license_source:
+      url: 'http://localhost/stardog/stardog-license-key.bin'
+      sha1: '9c85394e89a086dfd7d06cb9dc04c828becb9db8'
 
 
 #### `stardog::user`
