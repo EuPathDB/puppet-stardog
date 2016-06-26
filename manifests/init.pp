@@ -10,6 +10,7 @@ class stardog (
   $manage_user = $stardog::params::manage_user,
   $java_args   = $stardog::params::java_args,
   $sysconfig   = $stardog::params::sysconfig,
+  $properties  = $stardog::params::properties,
 ) inherits stardog::params {
 
   include ::stardog::service
@@ -55,6 +56,14 @@ class stardog (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
+    notify  => Service['stardog'],
+  }
+
+  file { "${home}/stardog.properties":
+    ensure  => 'file',
+    content => template('stardog/stardog.properties.erb'),
+    owner   => $user,
+    mode    => '0640',
     notify  => Service['stardog'],
   }
 

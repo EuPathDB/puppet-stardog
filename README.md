@@ -56,3 +56,11 @@ The full path to the directory where Stardog will be installed. The default is
 
 #### `stardog::port`
 
+#### `stardog::properties`
+
+Optional hash of key value pairs for `$STARDOG_HOME/stardog.properties`
+file. A hiera example,
+
+    stardog::properties:
+      query.all.graphs: true
+      query.timeout: 500ms

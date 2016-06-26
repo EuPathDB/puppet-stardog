@@ -13,4 +13,6 @@ class stardog::params {
 
   $service_ensure = 'running'
   $service_enable = true
+
+  $properties = {}
 }
