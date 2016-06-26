@@ -7,12 +7,14 @@ class stardog::params {
   $port = '5820'
   $user = 'stardog'
   $manage_user = true
-  $java_args = undef
 
   $sysconfig = '/etc/sysconfig/stardog'
 
   $service_ensure = 'running'
   $service_enable = true
+
+  $java_args = undef
+  $java_home = undef
 
   $properties = {}
 }

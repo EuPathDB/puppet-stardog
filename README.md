@@ -48,6 +48,20 @@ Example hiera
       sha1: '9c85394e89a086dfd7d06cb9dc04c828becb9db8'
 
 
+#### `stardog::java_args`
+
+Java arguments to be passed to the stardog service and also set in
+`/etc/profile.d/stardog` for CLI tools. See `STARDOG_JAVA_ARGS` in
+Stardog documentation for more information.
+
+#### `stardog::java_home`
+
+Specify `JAVA_HOME` environment variable for stardog service. This
+setting will go in `/etc/sysconfig/stardog` (see
+`stardog::params::sysconfig`). By default no `JAVA_HOME` is explicitly
+set so the stardog service will use the OS default (and if there is no
+default the service will fail to start).
+
 #### `stardog::user`
 
 The user that the stardog daemon will run as. This user will be created

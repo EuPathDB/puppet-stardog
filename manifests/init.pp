@@ -11,6 +11,7 @@ class stardog (
   $java_args      = $stardog::params::java_args,
   $sysconfig      = $stardog::params::sysconfig,
   $properties     = $stardog::params::properties,
+  $java_home      = $stardog::params::java_home,
 ) inherits stardog::params {
 
   include ::stardog::service
