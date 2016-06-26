@@ -23,7 +23,7 @@ class stardog (
       ensure     => 'present',
       home       => $home,
       managehome => false,
-      shell      => '/sbin/nologin',
+      shell      => '/bin/bash',
     }
   }
 
