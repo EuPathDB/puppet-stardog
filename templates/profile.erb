@@ -1,7 +1,14 @@
 # This file is managed by the Puppet <%= @name %> module
 
+<%-
+ssl = scope['stardog::ssl']
+truststore_opt = (ssl == 'require' or ssl == 'enable') ?
+  '-Djavax.net.ssl.trustStore=' + scope['stardog::keystore'] :
+  ''
+-%>
+
 export STARDOG_HOME=<%= scope['stardog::home'] %>
 <%- if scope['stardog::java_args'] -%>
-export STARDOG_JAVA_ARGS='<%= scope['stardog::java_args'] %>'
+export STARDOG_JAVA_ARGS='<%= scope['stardog::java_args'] %> <%= truststore_opt %>'
 <%- end -%>
 export PATH=$PATH:<%= scope['stardog::base'] %>/bin
