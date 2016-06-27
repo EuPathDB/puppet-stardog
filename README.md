@@ -107,8 +107,20 @@ database. For example, by manually running on the CLI
 
     stardog-admin user passwd --username admin --passwd admin --new-password passWORD
 
+If SSL is in effect, specify the server with `snarls` scheme.
+
+    stardog-admin --server snarls://localhost:5820 user passwd --username admin --passwd admin --new-password passWORD
+    
 The `.sdpass` file especially needs the `admin` account password (if not
 the default) so the service can be shut down cleanly.
+
+#### `stardog::ssl`
+
+Whether to use SSL. Valid options are 
+
+- `disable`: No SSL is used. This is the default.
+- `enable`: enable Stardog to optionally support SSL connections
+- `require`: require Stardog to use SSL only, reject any non-SSL connections
 
 #### `stardog::properties`
 

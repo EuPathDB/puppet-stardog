@@ -1,10 +1,16 @@
 # Environmental settings for Stardog
 # This file is managed by the Puppet <%= @name %> module
 
+<%-
+ssl = scope['stardog::ssl']
+truststore_opt = (ssl == 'require' or ssl == 'enable') ?
+  '-Djavax.net.ssl.trustStore=' + scope['stardog::keystore'] :
+  ''
+-%>
 <%- if scope['stardog::java_home'] -%>
 JAVA_HOME='<%= scope['stardog::java_home'] %>'
 <%- end -%>
 STARDOG_HOME=<%= scope['stardog::home'] %>
 <%- if scope['stardog::java_args'] -%>
-STARDOG_JAVA_ARGS='<%= scope['stardog::java_args'] %>'
+STARDOG_JAVA_ARGS='<%= scope['stardog::java_args'] %> <%= truststore_opt %>'
 <%- end -%>

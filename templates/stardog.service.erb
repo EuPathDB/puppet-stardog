@@ -1,3 +1,12 @@
+<%-
+ssl = scope['stardog::ssl']
+scheme = (ssl == 'require' or ssl == 'enable') ? 'snarls' : 'snarl'
+start_opt= case scope['stardog::ssl']
+  when 'require' then '--require-ssl'
+  when 'enable'  then '--enable-ssl' 
+  else ''
+end
+-%>
 # This file is managed by the Puppet <%= @name %> module
 
 [Unit]
@@ -8,8 +17,8 @@ After=network.target remote-fs.target nss-lookup.target
 Type=forking
 EnvironmentFile=<%= scope['stardog::sysconfig'] %>
 User=<%= scope['stardog::user'] %>
-ExecStart=<%= scope['stardog::base'] %>/bin/stardog-admin server start
-ExecStop=<%= scope['stardog::base'] %>/bin/stardog-admin server stop
+ExecStart=<%= scope['stardog::base'] %>/bin/stardog-admin server start <%= start_opt %>
+ExecStop=<%= scope['stardog::base'] %>/bin/stardog-admin --server <%= scheme %>://127.0.0.1:<%= scope['stardog::port'] %>/ server stop
 Restart=on-failure
 RestartSec=42s
 

@@ -1,21 +1,30 @@
 #
 class stardog (
-  $package_source = undef,
-  $license_source = undef,
-  $version        = $stardog::params::version,
-  $home           = $stardog::params::home,
-  $install_dir    = $stardog::params::install_dir,
-  $port           = $stardog::params::port,
-  $user           = $stardog::params::user,
-  $manage_user    = $stardog::params::manage_user,
-  $java_args      = $stardog::params::java_args,
-  $sysconfig      = $stardog::params::sysconfig,
-  $properties     = $stardog::params::properties,
-  $sdpass         = $stardog::params::sdpass,
-  $java_home      = $stardog::params::java_home,
+  Hash               $package_source = undef,
+  Hash               $license_source = undef,
+  String             $version        = $stardog::params::version,
+  String             $home           = $stardog::params::home,
+  String             $install_dir    = $stardog::params::install_dir,
+  Enum[
+    'disable',
+    'enable',
+    'require']       $ssl            = $stardog::params::use_ssl,
+  String             $keystore       = $stardog::params::keystore,
+  Integer            $port           = $stardog::params::port,
+  String             $user           = $stardog::params::user,
+  Boolean            $manage_user    = $stardog::params::manage_user,
+  String             $java_args      = $stardog::params::java_args,
+  String             $sysconfig      = $stardog::params::sysconfig,
+  Hash               $properties     = $stardog::params::properties,
+  Array              $sdpass         = $stardog::params::sdpass,
+  String             $java_home      = $stardog::params::java_home,
 ) inherits stardog::params {
 
   include ::stardog::service
+
+  if $ssl != 'disable' {
+    include ::stardog::ssl_keystore
+  }
 
   $base = "${install_dir}/stardog-${version}"
 

@@ -4,9 +4,11 @@ class stardog::params {
   $version = '4.1'
   $install_dir = '/opt'
   $home = '/var/lib/stardog'
-  $port = '5820'
+  $port = 5820
   $user = 'stardog'
   $manage_user = true
+  $ssl = 'disable'
+  $keystore = '/var/lib/stardog/keystore.jks'
 
   $sysconfig = '/etc/sysconfig/stardog'
 
