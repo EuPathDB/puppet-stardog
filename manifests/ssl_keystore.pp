@@ -57,14 +57,16 @@ class stardog::ssl_keystore (
 
   java_ks { 'stardog-server:/var/lib/stardog/keystore.jks':
     ensure       => latest,
-    certificate  =>  $certificate['dest'],
-    private_key  =>  $private_key['dest'],
+    path         => "${stardog::java_home}/bin",
+    certificate  => $certificate['dest'],
+    private_key  => $private_key['dest'],
     password     => 'password',
     trustcacerts => true,
   }
 
   java_ks { 'ca:/var/lib/stardog/keystore.jks':
     ensure       => latest,
+    path         => "${stardog::java_home}/bin",
     certificate  => $ca['dest'],
     password     => $password,
     trustcacerts => true,
