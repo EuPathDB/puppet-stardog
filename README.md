@@ -122,6 +122,64 @@ Whether to use SSL. Valid options are
 - `enable`: enable Stardog to optionally support SSL connections
 - `require`: require Stardog to use SSL only, reject any non-SSL connections
 
+If you `enable` or `require` SSL then you need to also specify
+certificate-related information.
+
+#### `stardog::ssl::certificate`
+
+_Required if SSL is used._
+
+This is a hash specifying the source and destination of the SSL
+certificate.
+
+    stardog::ssl::certificate:
+      src: 'puppet:///modules/profiles/ssl/demo-rsa.crt'
+      dest: '/etc/pki/tls/certs/demo-rsa.crt'
+
+Where `src` is the source of the file to be installed on the server at
+the location set for `dest`. If `src` key value is not set then the
+file is assumed to be managed in another module.
+
+#### `stardog::ssl::private_key`
+
+_Required if SSL is used._
+
+This is a hash specifying the source and destination of the private key
+associated with the certificate.
+
+    stardog::ssl::private_key:
+      src: 'puppet:///modules/profiles/ssl/demo-rsa.key'
+      dest: '/etc/pki/tls/private/demo-rsa.key'
+
+Where `src` is the source of the file to be installed on the server at
+the location set for `dest`. If `src` key value is not set then the
+file is assumed to be managed in another module.
+
+#### `stardog::ssl::ca`
+
+_Required if SSL is used._
+
+This is a hash specifying the source and destination of the CA that
+signed the certificate.
+
+    stardog::ssl::ca:
+      src:
+      dest: '/etc/pki/tls/certs/apidb-ca-rsa.crt'
+
+Where `src` is the source of the file to be installed on the server at
+the location set for `dest`. If `src` key value is not set then the
+file is assumed to be managed in another module.
+
+#### `stardog::ssl::ks_passwd`
+
+_Required if SSL is used._
+
+Password for the java keystore where CA, certificate and private key are
+stored.
+
+    stardog::ssl::ks_passwd: 'password'
+
+
 #### `stardog::properties`
 
 Optional hash of key value pairs for `$STARDOG_HOME/stardog.properties`

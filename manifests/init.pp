@@ -23,7 +23,7 @@ class stardog (
   include ::stardog::service
 
   if $ssl != 'disable' {
-    include ::stardog::ssl_keystore
+    include ::stardog::ssl
   }
 
   $base = "${install_dir}/stardog-${version}"
@@ -38,14 +38,15 @@ class stardog (
   }
 
   archive { "/tmp/stardog-${version}.zip":
-    ensure       => present,
-    extract      => true,
-    extract_path => $stardog::params::install_dir,
-    source       => $package_source['url'],
-    checksum     => $package_source['sha1'],
-    creates      => $base,
-    cleanup      => true,
-    notify       => Service['stardog'],
+    ensure        => present,
+    extract       => true,
+    extract_path  => $stardog::params::install_dir,
+    source        => $package_source['url'],
+    checksum      => $package_source['sha1'],
+    checksum_type => 'sha1',
+    creates       => $base,
+    cleanup       => true,
+    notify        => Service['stardog'],
   }
 
   file { $home:
@@ -55,12 +56,13 @@ class stardog (
   }
 
   archive { "${home}/stardog-license-key.bin":
-    ensure   => present,
-    extract  => false,
-    source   => $license_source['url'],
-    checksum => $license_source['sha1'],
-    creates  => "${home}/stardog-license-key.bin",
-    cleanup  => false,
+    ensure        => present,
+    extract       => false,
+    source        => $license_source['url'],
+    checksum      => $license_source['sha1'],
+    checksum_type => 'sha1',
+    creates       => "${home}/stardog-license-key.bin",
+    cleanup       => false,
   }
 
   file { '/usr/lib/systemd/system/stardog.service':
@@ -103,4 +105,12 @@ class stardog (
     group   => 'root',
     mode    => '0644',
   }
+
+  exec { 'reload_systectl':
+    command     => 'systemctl daemon-reload',
+    path        => ['/usr/bin', '/bin'],
+    refreshonly => true,
+    subscribe   => File['/usr/lib/systemd/system/stardog.service'],
+  }
+
 }

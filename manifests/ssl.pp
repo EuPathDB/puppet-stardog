@@ -14,11 +14,11 @@
 # the location set for `dest`. If `src` key value is not set then the
 # file is assumed to be managed in another module.
 #
-class stardog::ssl_keystore (
+class stardog::ssl (
   Hash   $certificate = {},
   Hash   $private_key = {},
   Hash   $ca          = {},
-  String $password    = 'password',
+  String $ks_passwd   = $stardog::params::ks_passwd,
 ) {
 
   File {
@@ -60,7 +60,7 @@ class stardog::ssl_keystore (
     path         => "${stardog::java_home}/bin",
     certificate  => $certificate['dest'],
     private_key  => $private_key['dest'],
-    password     => 'password',
+    password     => $ks_passwd,
     trustcacerts => true,
   }
 
@@ -68,7 +68,7 @@ class stardog::ssl_keystore (
     ensure       => latest,
     path         => "${stardog::java_home}/bin",
     certificate  => $ca['dest'],
-    password     => $password,
+    password     => $ks_passwd,
     trustcacerts => true,
   }
 

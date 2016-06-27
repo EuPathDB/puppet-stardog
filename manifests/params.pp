@@ -9,6 +9,7 @@ class stardog::params {
   $manage_user = true
   $ssl = 'disable'
   $keystore = '/var/lib/stardog/keystore.jks'
+  $ks_passwd = 'password'
 
   $sysconfig = '/etc/sysconfig/stardog'
 
